@@ -11,7 +11,7 @@
   </div> -->
   <div class="container">
     <Transition
-      name="para"
+      :css="false"
       @before-enter="beforeEnterMeth"
       @enter="enterMeth"
       @after-enter="afterEnterMeth"
