@@ -94,10 +94,10 @@ button:active {
 .animate {
   /* transform: translateX(-100px);
    */
-  animation: slide-fade 0.7s;
+  animation: slide-scale 0.7s;
 }
 
-@keyframes slide-fade {
+@keyframes slide-scale {
   0% {
     transform: translateX(0) scale(1);
   }
@@ -114,7 +114,8 @@ button:active {
 
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.5s ease;
+  /* transition: opacity 0.5s ease;*/
+  animation: slide-scale 0.4s ease-out;
 }
 
 .v-enter-from,
