@@ -1,13 +1,14 @@
 <template>
-  <ul>
+  <transition-group tag="ul" name="user-list">
     <li v-for="user in users" :key="user" @dblclick="removeUser(user)">
       {{ user }}
     </li>
-  </ul>
+  </transition-group>
+
   <div class="form-control">
     <label for="element">Add element</label>
     <input type="text" name="element" id="element" v-model="name" />
-    <button @click="addUser">Add</button>
+    <button @click="addUser" :disabled="!name">Add</button>
   </div>
 </template>
 
@@ -27,6 +28,11 @@ export default {
     removeUser(user) {
       this.users = this.users.filter((usr) => usr !== user);
     },
+  },
+  mounted() {
+    if (this.users.length > 7) {
+      this.users.pop();
+    }
   },
 };
 </script>
@@ -63,5 +69,20 @@ ul li {
 
 .form-control label {
   font-weight: bold;
+}
+
+.user-list-enter-from,
+.user-list-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.user-list-enter-active,
+.user-list-leave-active {
+  transition: all 1s ease-out;
+}
+.user-list-enter-to,
+.user-list-leave-from {
+  opacity: 1;
+  transform: translateX(0);
 }
 </style>
