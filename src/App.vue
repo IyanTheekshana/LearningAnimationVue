@@ -3,8 +3,22 @@
     <div class="block" :class="{ animate: animated }"></div>
     <button @click="animateBlock">Animate</button>
   </div>
-  <div class="container">
+  <!-- <div class="container">
     <Transition name="para">
+      <p v-if="paraIsVisible">This is only sometimes visible...</p>
+    </Transition>
+    <button @click="togglePara">Toggle Paragraph</button>
+  </div> -->
+  <div class="container">
+    <Transition
+      name="para"
+      @before-enter="beforeEnterMeth"
+      @enter="enterMeth"
+      @after-enter="afterEnterMeth"
+      @before-leave="beforeLeaveMeth"
+      @leave="leaveMeth"
+      @after-leave="afterLeaveMeth"
+    >
       <p v-if="paraIsVisible">This is only sometimes visible...</p>
     </Transition>
     <button @click="togglePara">Toggle Paragraph</button>
@@ -53,6 +67,30 @@ export default {
     },
     hideUsers() {
       this.userVisibility = false;
+    },
+    beforeEnterMeth(el) {
+      console.log("before enter event executed");
+      console.log(el);
+    },
+    enterMeth(el) {
+      console.log("enter event executed");
+      console.log(el);
+    },
+    afterEnterMeth(el) {
+      console.log("after enter event executed");
+      console.log(el);
+    },
+    beforeLeaveMeth(el) {
+      console.log("before leave event executed");
+      console.log(el);
+    },
+    leaveMeth(el) {
+      console.log("leave event executed");
+      console.log(el);
+    },
+    afterLeaveMeth(el) {
+      console.log("after leave event executed");
+      console.log(el);
     },
   },
 };
