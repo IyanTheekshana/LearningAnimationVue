@@ -18,6 +18,8 @@
       @before-leave="beforeLeaveMeth"
       @leave="leaveMeth"
       @after-leave="afterLeaveMeth"
+      @enter-cancelled="enterCancelled"
+      @leave-cancelled="leaveCancelled"
     >
       <p v-if="paraIsVisible">This is only sometimes visible...</p>
     </Transition>
@@ -47,6 +49,8 @@ export default {
       animated: false,
       paraIsVisible: false,
       userVisibility: false,
+      enterInterval: null,
+      leaveInterval: null,
     };
   },
   methods: {
@@ -71,10 +75,20 @@ export default {
     beforeEnterMeth(el) {
       console.log("before enter event executed");
       console.log(el);
+      el.style.opacity = 0;
     },
-    enterMeth(el) {
+    enterMeth(el, done) {
       console.log("enter event executed");
       console.log(el);
+      let round = 1;
+      this.enterInterval = setInterval(() => {
+        el.style.opacity = round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(this.enterInterval);
+          done();
+        }
+      }, 20);
     },
     afterEnterMeth(el) {
       console.log("after enter event executed");
@@ -83,14 +97,31 @@ export default {
     beforeLeaveMeth(el) {
       console.log("before leave event executed");
       console.log(el);
+      el.style.opacity = 1;
     },
-    leaveMeth(el) {
+    leaveMeth(el, done) {
       console.log("leave event executed");
       console.log(el);
+      let round = 1;
+      this.leaveInterval = setInterval(() => {
+        el.style.opacity = 1 - round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(this.leaveInterval);
+          done();
+        }
+      }, 20);
     },
     afterLeaveMeth(el) {
       console.log("after leave event executed");
       console.log(el);
+      el.style.opacity = 0;
+    },
+    enterCancelled() {
+      clearInterval(this.enterInterval);
+    },
+    leaveCancelled() {
+      clearInterval(this.leaveInterval);
     },
   },
 };
@@ -164,17 +195,17 @@ button:active {
     transform: translateX(0px) scale(1);
   }
 }
-
+/*
 .para-enter-active,
 .para-leave-active {
-  /* transition: opacity 0.5s ease;*/
-  animation: slide-scale 0.4s ease-out;
-}
+   transition: opacity 0.5s ease;
+  animation: slide-scale 0.4s ease-out; 
+}*/
 
-.para-enter-from,
+/* .para-enter-from,
 .para-leave-to {
   opacity: 0;
-}
+}  */
 
 .btn-fade-enter-active,
 .btn-fade-leave-active {
