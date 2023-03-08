@@ -3,6 +3,9 @@
     <div class="block" :class="{ animate: animated }"></div>
     <button @click="animateBlock">Animate</button>
   </div>
+  <div class="container">
+    <list-data></list-data>
+  </div>
   <!-- <div class="container">
     <Transition name="para">
       <p v-if="paraIsVisible">This is only sometimes visible...</p>
@@ -42,7 +45,12 @@
 </template>
 
 <script>
+import ListData from "./components/ListData.vue";
+
 export default {
+  components: {
+    ListData,
+  },
   data() {
     return {
       dialogIsVisible: false,
@@ -137,7 +145,7 @@ html {
 body {
   margin: 0;
   background: linear-gradient(318deg, #f75600 0%, #c7e25f 50%, #99f19c 100%);
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
 button {
