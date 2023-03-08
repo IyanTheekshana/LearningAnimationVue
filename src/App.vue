@@ -162,6 +162,7 @@ button:hover,
 button:active {
   background-color: #383838;
   border-color: #383838;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 .block {
   width: 8rem;

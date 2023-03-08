@@ -49,6 +49,7 @@ ul li {
   background: goldenrod;
   padding: 1rem;
   border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .form-control input {
@@ -56,6 +57,8 @@ ul li {
   margin: 0 0.5rem;
   border-radius: 10px;
   border: none;
+  outline: none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .form-control label {
