@@ -1,4 +1,10 @@
 <template>
+  <router-view v-slot="slotProps">
+    <Transition name="route" mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </Transition>
+  </router-view>
+
   <div class="container">
     <div class="block" :class="{ animate: animated }"></div>
     <button @click="animateBlock">Animate</button>
@@ -148,7 +154,8 @@ body {
   height: 100%;
   width: 100%;
 }
-button {
+button,
+a {
   font: inherit;
   padding: 0.5rem 2rem;
   border: 1px solid #0c0c0c;
@@ -157,9 +164,12 @@ button {
   color: white;
   cursor: pointer;
   margin: 2px;
+  text-decoration: none;
 }
 button:hover,
-button:active {
+button:active,
+a:hover,
+a:active {
   background-color: #383838;
   border-color: #383838;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -204,6 +214,26 @@ button:active {
     transform: translateX(0px) scale(1);
   }
 }
+@keyframes slide-in {
+  0% {
+    transform: translateX(-120px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+@keyframes slide-out {
+  0% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120px);
+    opacity: 0;
+  }
+}
 /*
 .para-enter-active,
 .para-leave-active {
@@ -224,5 +254,16 @@ button:active {
 .btn-fade-enter-from,
 .btn-fade-leave-to {
   opacity: 0;
+}
+
+.route-enter-to {
+}
+.route-enter-from,
+.route-enter-active {
+  animation: slide-in 0.7s;
+}
+
+.route-leave-active {
+  animation: slide-out 0.7s;
 }
 </style>
