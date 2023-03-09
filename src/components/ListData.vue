@@ -80,9 +80,17 @@ ul li {
 .user-list-leave-active {
   transition: all 1s ease-out;
 }
+
+.user-list-leave-active {
+  position: absolute;
+}
 .user-list-enter-to,
 .user-list-leave-from {
   opacity: 1;
   transform: translateX(0);
+}
+
+.user-list-move {
+  transition: transform 0.4s ease-in;
 }
 </style>
